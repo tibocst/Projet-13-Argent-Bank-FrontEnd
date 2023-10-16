@@ -6,18 +6,18 @@ import { Navigate } from "react-router-dom";
 const LOGO = require("../../assets/argentBankLogo.png");
 
 function Login() {
-  const [inputs, setInput] = useState({ username: "", password: "" });
+  // const [inputs, setInput] = useState({ username: "", password: "" });
 
-  function inputChange(e) {
-    setInput({ ...inputs, [e.target.name]: e.target.value });
-  }
+  // function inputChange(e) {
+  //   setInput({ ...inputs, [e.target.name]: e.target.value });
+  // }
 
-  function login(event) {
-    event.preventDefault();
-    if (!inputs.username || !inputs.password) return;
-    return (
-      <Navigate to="/" replace={true}/>
-      );  }
+  // function login(event) {
+  //   event.preventDefault();
+  //   if (!inputs.username || !inputs.password) return;
+  //   return (
+  //     <Navigate to="/" replace={true}/>
+  //     );  }
 
   return (
     <div className="login">
@@ -26,7 +26,7 @@ function Login() {
         <div className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          <form onSubmit={login}>
+          {/* <form onSubmit={login}>
             <div className="input-wrapper">
               <label>Username
                 <input type="text" name="username" id="username" onChange={inputChange}/>
@@ -43,7 +43,7 @@ function Login() {
               </label>
             </div>
             <button type="submit" className="sign-in-button">Sign In</button>
-          </form>
+          </form> */}
         </div>
       </main>
     </div>
