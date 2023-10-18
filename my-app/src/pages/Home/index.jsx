@@ -2,8 +2,8 @@ import "../../styles/index.css";
 import FeatureItem from "../../components/FeatureItem";
 import NavBar from "../../components/NavBar";
 import HeroContent from "../../components/HeroContent";
-import { useDispatch, useSelector } from 'react-redux'
-import * as themeActions from '../../features/theme'
+// import { useDispatch, useSelector } from 'react-redux'
+// import * as themeActions from '../../features/theme'
 
 const LOGO = require("../../assets/argentBankLogo.png");
 const CHATICON = require("../../assets/icon-chat.png");
@@ -11,9 +11,8 @@ const MONEYICON = require("../../assets/icon-money.png");
 const SECURITYICON = require("../../assets/icon-security.png");
 
 function Home() {
-  const dispatch = useDispatch()
-  const theme = useSelector((state) => state.theme.darkMode)
-  console.log(theme)
+  // const dispatch = useDispatch()
+  // const theme = useSelector((state) => state.theme.darkMode)
   
   return (
     <div className="home">

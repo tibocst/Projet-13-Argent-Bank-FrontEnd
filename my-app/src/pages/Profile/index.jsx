@@ -1,30 +1,12 @@
 import "../../styles/index.css";
+import NavBar from "../../components/NavBar";
 
-// const LOGO = require("../../assets/argentBankLogo.png");
+const LOGO = require("../../assets/argentBankLogo.png");
 
 function Profile() {
   return (
     <div className="profile">
-      <nav className="main-nav">
-        <a className="main-nav-logo" href="./index.html">
-          <img
-            className="main-nav-logo-image"
-            src="./img/argentBankLogo.png"
-            alt="Argent Bank Logo"
-          />
-          <h1 className="sr-only">Argent Bank</h1>
-        </a>
-        <div>
-          <a className="main-nav-item" href="./user.html">
-            <i className="fa fa-user-circle"></i>
-            Tony
-          </a>
-          <a className="main-nav-item" href="./index.html">
-            <i className="fa fa-sign-out"></i>
-            Sign Out
-          </a>
-        </div>
-      </nav>
+        <NavBar src={LOGO}/>
       <main className="main bg-dark">
         <div className="header">
           <h1>
@@ -66,9 +48,6 @@ function Profile() {
           </div>
         </section>
       </main>
-      <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
     </div>
   );
 }

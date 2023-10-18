@@ -1,24 +1,24 @@
 import "../../styles/index.css";
 import NavBar from "../../components/NavBar";
-import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import * as loginActions from "../../features/login";
+import { useDispatch, useSelector } from "react-redux";
 
 const LOGO = require("../../assets/argentBankLogo.png");
 
 function Login() {
-  // const [inputs, setInput] = useState({ username: "", password: "" });
 
-  // function inputChange(e) {
-  //   setInput({ ...inputs, [e.target.name]: e.target.value });
-  // }
+  const dispatch = useDispatch();
+  const check = useSelector((state) => state.login.isLogged);
 
-  // function login(event) {
-  //   event.preventDefault();
-  //   if (!inputs.username || !inputs.password) return;
-  //   return (
-  //     <Navigate to="/" replace={true}/>
-  //     );  }
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    dispatch(loginActions.set(true))
+  }
 
+  if (check) {
+    return <Navigate to="/profile" replace={true} />
+  }
   return (
     <div className="login">
       <NavBar src={LOGO} />
@@ -26,8 +26,8 @@ function Login() {
         <div className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          {/* <form onSubmit={login}>
-            <div className="input-wrapper">
+          <form onSubmit={handleSubmit}>
+            {/* <div className="input-wrapper">
               <label>Username
                 <input type="text" name="username" id="username" onChange={inputChange}/>
               </label>
@@ -41,9 +41,11 @@ function Login() {
               <label>Remember me
                 <input type="checkbox" id="remember-me" />
               </label>
-            </div>
-            <button type="submit" className="sign-in-button">Sign In</button>
-          </form> */}
+            </div> */}
+            <button type="submit" className="sign-in-button">
+              Sign In
+            </button>
+          </form>
         </div>
       </main>
     </div>
