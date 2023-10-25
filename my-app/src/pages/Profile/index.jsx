@@ -1,34 +1,88 @@
 import "../../styles/index.css";
 import NavBar from "../../components/NavBar";
 import { useDispatch, useSelector } from "react-redux";
-import {getProfileContents, getProfileStatus, fetchProfile } from "../../features/profile";
+import {
+  getProfileContents,
+  getProfileEdittForm,
+  fetchProfile,
+  modifyProfile,
+  toggleEditForm,
+} from "../../features/profile";
 import { useEffect } from "react";
 
 const LOGO = require("../../assets/argentBankLogo.png");
 
 function Profile() {
-
   const dispatch = useDispatch();
-  const contents = useSelector(getProfileContents)
-  const status = useSelector(getProfileStatus)
+  const token = localStorage.getItem("userToken");
+  const contents = useSelector(getProfileContents);
+  const editForm = useSelector(getProfileEdittForm);
 
-  useEffect(()=>{
-    dispatch(fetchProfile(localStorage.getItem("userToken")))
-  },[])
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+    const fetchData = 
+    {token: token,
+    body: {
+      firstName: formJson.firstname,
+      lastName: formJson.lastname,
+    }};
+    await dispatch(modifyProfile(fetchData));
+    dispatch(toggleEditForm())
+  };
 
-
+  useEffect(() => {
+    dispatch(fetchProfile(token));
+  }, []);
 
   return (
     <div className="profile">
-        <NavBar src={LOGO}/>
+      <NavBar src={LOGO} />
       <main className="main bg-dark">
         <div className="header">
           <h1>
             Welcome back
             <br />
-            {contents.body ? `${contents.body.firstName} ${contents.body.lastName} !` : null}
+            {contents.body
+              ? `${contents.body.firstName} ${contents.body.lastName} !`
+              : null}
           </h1>
-          <button className="edit-button">Edit Name</button>
+
+          {editForm ? (
+            <form onSubmit={handleSubmit}>
+              <div>
+                <div>
+                  <button type="submit" className="edit-button">
+                    Valider
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(toggleEditForm());
+                    }}
+                    className="edit-button"
+                  >
+                    Annuler
+                  </button>
+                </div>
+                <div>
+                  <input type="text" name="firstname" id="firstname" />
+                  <input type="text" name="lastname" id="lastname" />
+                </div>
+              </div>
+            </form>
+          ) : (
+            <button
+              onClick={() => {
+                dispatch(toggleEditForm());
+              }}
+              className="edit-button"
+            >
+              Edit Name
+            </button>
+          )}
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">
