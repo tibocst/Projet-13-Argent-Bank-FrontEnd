@@ -1,24 +1,25 @@
 import "../../styles/index.css";
 import { NavLink } from "react-router-dom";
+import {getLoginLogged, disconnect} from "../../features/login";
+import { useSelector, useDispatch } from "react-redux";
 
 function NavBar(props) {
   const { src } = props;
-
-  console.log()
-
+  const logged = useSelector(getLoginLogged)
+  const dispatch = useDispatch()
   return (
     <nav className="main-nav">
       <NavLink className="main-nav-logo" to="/">
         <img className="main-nav-logo-image" src={src} alt="Argent Bank Logo" />
       </NavLink>
       <div>
-        {window.location.pathname === "/profile" ? (
+        {logged ? (
           <div>
           <NavLink className="main-nav-item" to="/profile">
             <i className="fa fa-user-circle"></i>
             Tony
           </NavLink>
-          <NavLink className="main-nav-item" to="/login">
+          <NavLink onClick={()=> dispatch(disconnect())} className="main-nav-item" to="/" replace={true}>
             <i className="fa fa-sign-out"></i>
             Sign Out
           </NavLink>

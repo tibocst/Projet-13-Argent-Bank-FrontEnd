@@ -1,9 +1,23 @@
 import "../../styles/index.css";
 import NavBar from "../../components/NavBar";
+import { useDispatch, useSelector } from "react-redux";
+import {getProfileContents, getProfileStatus, fetchProfile } from "../../features/profile";
+import { useEffect } from "react";
 
 const LOGO = require("../../assets/argentBankLogo.png");
 
 function Profile() {
+
+  const dispatch = useDispatch();
+  const contents = useSelector(getProfileContents)
+  const status = useSelector(getProfileStatus)
+
+  useEffect(()=>{
+    dispatch(fetchProfile(localStorage.getItem("userToken")))
+  },[])
+
+
+
   return (
     <div className="profile">
         <NavBar src={LOGO}/>
@@ -12,7 +26,7 @@ function Profile() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {contents.body ? `${contents.body.firstName} ${contents.body.lastName} !` : null}
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>
