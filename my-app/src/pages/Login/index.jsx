@@ -2,8 +2,7 @@ import "../../styles/index.css";
 import NavBar from "../../components/NavBar";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {getLoginContents, getLoginStatus, getLoginLogged, fetchLogin } from "../../features/login";
-// import { getUser } from "../../api";
+import { getLoginLogged, fetchLogin } from "../../features/login";
 
 
 const LOGO = require("../../assets/argentBankLogo.png");
@@ -11,8 +10,6 @@ const LOGO = require("../../assets/argentBankLogo.png");
 function Login() {
 
   const dispatch = useDispatch();
-  const contents = useSelector(getLoginContents)
-  const status = useSelector(getLoginStatus)
   const logged = useSelector(getLoginLogged)
 
   const handleSubmit = async (e) => {
@@ -20,28 +17,20 @@ function Login() {
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
+    if(formJson.rememberme === 'on') {
+      localStorage.setItem("rememberMe", true)
+    } else {
+      localStorage.setItem("rememberMe", false)
+    }
     const bodyFetchData = {
       email: formJson.username,
       password: formJson.password
     }
     await dispatch(fetchLogin(bodyFetchData));
+    console.log(localStorage.getItem('rememberMe'), "login rememberMe")
+    console.log(localStorage.getItem('userToken'), "login token")
+
   }
-
-  //test fetch
-
-  // const [data, setData] = useState(null);
-
-  // const fetchUser = async () => {
-  //   const response = await getUser();
-  //     setData(response);
-  // };
-
-  // useEffect(() => {
-  //     fetchUser();
-  // }, []);
-
-  // console.log(data)
-
 
   if (logged) {
     return <Navigate to="/profile" replace={true} />
@@ -66,7 +55,7 @@ function Login() {
             </div>
             <div className="input-remember">
               <label>Remember me
-                <input type="checkbox" id="remember-me" />
+                <input type="checkbox" name="rememberme"  id="remember-me" />
               </label>
             </div>
             <button type="submit" className="sign-in-button">

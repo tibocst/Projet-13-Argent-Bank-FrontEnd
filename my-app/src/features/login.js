@@ -32,6 +32,9 @@ export const loginSlice = createSlice({
         state.logged = false;
         localStorage.removeItem("userToken")
     },
+    connect: (state) => {
+      state.logged = true;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchLogin.pending, (state) => {
@@ -56,4 +59,4 @@ export const getLoginError = (state) => state.login.error;
 export const getLoginLogged = (state) => state.login.logged;
 
 export default loginSlice.reducer
-export const { disconnect } = loginSlice.actions
+export const { disconnect, connect } = loginSlice.actions
