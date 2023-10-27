@@ -50,8 +50,9 @@ function Login() {
               </label>
             </div>
             <div className="input-remember">
-              <label>Remember me
+              <label>
                 <input type="checkbox" name="rememberme"  id="remember-me" />
+                Remember me
               </label>
             </div>
             <button type="submit" className="sign-in-button">

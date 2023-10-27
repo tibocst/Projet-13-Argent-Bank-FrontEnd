@@ -4,13 +4,27 @@ html {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    height: 100%;
   }
   
   body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    /* min-height: 100vh; */
+    height: 100%;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  #root > div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
   
   .main {
@@ -41,6 +55,10 @@ html {
     align-items: center;
     padding: 5px 20px;
   }
+
+  .main-nav > div > div {
+    display: flex;
+  }
   
   .main-nav a {
     font-weight: bold;
@@ -52,6 +70,8 @@ html {
   }
   
   .main-nav-item {
+    display: flex;
+    gap: 5px;
     text-decoration: none;
     margin-right: 0.5rem;
   }
@@ -71,6 +91,7 @@ html {
   }
   
   .hero {
+    display: flex;
     background-image: url('../assets/bank-tree.jpeg');
     background-position: 0 -50px;
     background-size: cover;
@@ -183,7 +204,12 @@ html {
   }
   
   .input-remember label {
-    margin-left: 0.25rem;
+    display: flex;
+    gap: 10px;
+  }
+
+  .input-remember > label > input {
+    margin: 0;
   }
   
   .input-wrapper {
@@ -288,5 +314,18 @@ html {
     .transaction-button {
       width: 200px;
     }
+  }
+
+  .modifyName-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .modifyName-div > div {
+    display: flex;
+    gap: 10px;
   }
   
