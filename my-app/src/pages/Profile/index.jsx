@@ -1,5 +1,4 @@
 import "../../styles/index.css";
-import NavBar from "../../components/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getProfileContents,
@@ -9,8 +8,6 @@ import {
   toggleEditForm,
 } from "../../features/profile";
 import { useEffect } from "react";
-
-const LOGO = require("../../assets/argentBankLogo.png");
 
 function Profile() {
   const dispatch = useDispatch();
@@ -39,7 +36,6 @@ function Profile() {
 
   return (
     <div className="profile">
-      <NavBar src={LOGO} />
       <main className="main bg-dark">
         <div className="header">
           <h1>

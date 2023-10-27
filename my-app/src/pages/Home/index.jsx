@@ -1,11 +1,9 @@
 import "../../styles/index.css";
 import FeatureItem from "../../components/FeatureItem";
-import NavBar from "../../components/NavBar";
 import HeroContent from "../../components/HeroContent";
 // import { useDispatch, useSelector } from 'react-redux'
 // import * as themeActions from '../../features/theme'
 
-const LOGO = require("../../assets/argentBankLogo.png");
 const CHATICON = require("../../assets/icon-chat.png");
 const MONEYICON = require("../../assets/icon-money.png");
 const SECURITYICON = require("../../assets/icon-security.png");
@@ -16,7 +14,6 @@ function Home() {
   
   return (
     <div className="home">
-      <NavBar src={LOGO} />
       {/* <div style={{ backgroundColor: theme ? "black" : "white", padding:"10px"}}>
       <h4>{theme ? "Dark" : "Light"} Theme</h4>
         <button  onClick={() => dispatch(themeActions.toggle())}>

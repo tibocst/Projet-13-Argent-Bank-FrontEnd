@@ -5,9 +5,12 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
+import NavBar from "./components/NavBar";
 import { getLoginLogged, connect } from "./features/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+
+const LOGO = require("./assets/argentBankLogo.png");
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +32,7 @@ function App() {
 
   return (
     <Router>
+      <NavBar src={LOGO} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
