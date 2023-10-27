@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
+import Error from './pages/Error'
 import { getLoginLogged, connect } from "./features/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -44,6 +45,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/error" element={<Error />} />
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
     </Router>
