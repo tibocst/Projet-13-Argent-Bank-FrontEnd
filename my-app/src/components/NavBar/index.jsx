@@ -9,8 +9,7 @@ function NavBar(props) {
   const logged = useSelector(getLoginLogged)
   const dispatch = useDispatch()
   const contents = useSelector(getProfileContents)
-  console.log(logged, "logged navbar")
-  console.log(contents, "contents navbar")
+
   return (
     <nav className="main-nav">
       <NavLink className="main-nav-logo" to="/">

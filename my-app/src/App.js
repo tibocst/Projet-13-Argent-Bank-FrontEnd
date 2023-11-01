@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
 import Error from './pages/Error'
+import {  fetchProfile } from "./features/profile";
 import { getLoginLogged, connect } from "./features/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -16,8 +17,6 @@ const LOGO = require("./assets/argentBankLogo.png");
 function App() {
   const dispatch = useDispatch();
   const logged = useSelector(getLoginLogged);
-  console.log(localStorage.getItem("rememberMe"), "app rememberMe");
-  console.log(localStorage.getItem("userToken"), "app token");
 
   useEffect(() => {
     if (
@@ -25,11 +24,10 @@ function App() {
       localStorage.getItem("userToken") && 
       logged === false
     ) {
-      console.log(localStorage.getItem("rememberMe"), "app rememberMe if");
       dispatch(connect());
-      console.log(logged, "app logged");
+      dispatch(fetchProfile(localStorage.getItem("userToken")))
     }
-  },[]);
+  },[dispatch,logged]);
 
   return (
     <Router>

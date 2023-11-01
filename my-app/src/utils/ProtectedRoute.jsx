@@ -6,7 +6,6 @@ import { getLoginLogged } from "../features/login";
 const ProtectedRoute = ({ children }) => {
   const logged = useSelector(getLoginLogged);
   let location = useLocation();
-  console.log(logged)
 
   if (logged === false ) {
     return <Navigate to="/login" state={{ from: location }} replace />;

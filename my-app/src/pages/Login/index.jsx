@@ -1,64 +1,160 @@
 import "../../styles/index.css";
 import { Navigate } from "react-router-dom";
+import InputForm from "../../components/InputForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoginLogged, fetchLogin } from "../../features/login";
-
+import {
+  getLoginLogged,
+  fetchLogin,
+  fetchSignUp,
+  getLoginContents,
+} from "../../features/login";
+import { useState } from "react";
 
 function Login() {
-
   const dispatch = useDispatch();
-  const logged = useSelector(getLoginLogged)
+  const loginContents = useSelector(getLoginContents);
+  const logged = useSelector(getLoginLogged);
+  const [signUp, setSignUp] = useState(false);
+  const [signUpError, setSignUpError] = useState(false);
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  const passWordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/
+  const nameRegex = /^[A-Za-z]+$/
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmitSignIn = async (e) => {
+    e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
-    if(formJson.rememberme === 'on') {
-      localStorage.setItem("rememberMe", true)
+    if (formJson.rememberme === "on") {
+      localStorage.setItem("rememberMe", true);
     } else {
-      localStorage.setItem("rememberMe", false)
+      localStorage.setItem("rememberMe", false);
     }
     const bodyFetchData = {
       email: formJson.username,
-      password: formJson.password
-    }
+      password: formJson.password,
+    };
     await dispatch(fetchLogin(bodyFetchData));
-    console.log(localStorage.getItem('rememberMe'), "login rememberMe")
-    console.log(localStorage.getItem('userToken'), "login token")
+  };
 
-  }
+  const handleSubmitSignUp = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+
+    if (
+      emailRegex.test(formJson.username) === true &&
+      passWordRegex.test(formJson.password) === true &&
+      nameRegex.test(formJson.firstName) === true &&
+      nameRegex.test(formJson.lastName) === true
+    ) {
+      const bodyFetchData = {
+        email: formJson.username,
+        password: formJson.password,
+        firstName: formJson.firstname,
+        lastName: formJson.lastname,
+      };
+      setSignUpError(false);
+      await dispatch(fetchSignUp(bodyFetchData));
+    } else {
+      setSignUpError(true);
+    }
+  };
+
+  const handleClick = () => {
+    setSignUp(!signUp);
+  };
 
   if (logged) {
-    return <Navigate to="/profile" replace={true} />
+    return <Navigate to="/profile" replace={true} />;
   }
   return (
     <div className="login">
       <main className="main bg-dark">
         <div className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
-          <h1>Sign In</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="input-wrapper">
-              <label>Username
-                <input type="text" name="username" id="username"/>
-              </label>
-            </div>
-            <div className="input-wrapper">
-              <label>Password
-                <input type="password" name="password" id="password"/>
-              </label>
-            </div>
-            <div className="input-remember">
-              <label>
-                <input type="checkbox" name="rememberme"  id="remember-me" />
-                Remember me
-              </label>
-            </div>
-            <button type="submit" className="sign-in-button">
-              Sign In
-            </button>
-          </form>
+          <h1>{signUp ? "Sign Up" : "Sign In"}</h1>
+          {loginContents.status === 400 && signUp === false ? (
+            <p className="errorSignIn">
+              Email or passWord not found, try again
+            </p>
+          ) : null}
+          {signUpError === true ? (
+            <p className="errorSignIn">Error in form, try again</p>
+          ) : null}
+          {signUp ? (
+            <form onSubmit={handleSubmitSignUp}>
+              <InputForm
+                description="FirstName"
+                type="text"
+                name="firstname"
+                id="firstname"
+                required={true}
+                errorDescription="Please enter valid firstname"
+              />
+              <InputForm
+                description="LastName"
+                type="text"
+                name="lastname"
+                id="lastname"
+                required={true}
+                errorDescription="Please enter valid lastname"
+              />
+              <InputForm
+                description="Username"
+                type="text"
+                name="username"
+                id="username"
+                required={true}
+                errorDescription="Please enter valid User Name"
+              />
+              <InputForm
+                description="Password"
+                type="password"
+                name="password"
+                id="password"
+                required={true}
+                errorDescription="Please enter valid password"
+              />
+              <button type="submit" className="sign-in-button">
+                Sign Up
+              </button>
+            </form>
+          ) : (
+            <form onSubmit={handleSubmitSignIn}>
+              <InputForm
+                description="Username"
+                type="text"
+                name="username"
+                id="username"
+                required={true}
+                errorDescription="Please enter valid User Name"
+              />
+              <InputForm
+                description="Password"
+                type="password"
+                name="password"
+                id="password"
+                required={true}
+                errorDescription="Please enter valid password"
+              />
+              <InputForm
+                description="Remember me"
+                type="checkbox"
+                name="rememberme"
+                id="remember-me"
+                required={false}
+              />
+              <button type="submit" className="sign-in-button">
+                Sign In
+              </button>
+            </form>
+          )}
+
+          <div onClick={handleClick}>
+            <p>{signUp ? "Sign In ?" : "Sign Up ?"}</p>
+          </div>
         </div>
       </main>
     </div>
