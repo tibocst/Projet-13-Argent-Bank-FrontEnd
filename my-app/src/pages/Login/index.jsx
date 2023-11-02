@@ -16,7 +16,7 @@ function Login() {
   const logged = useSelector(getLoginLogged);
   const [signUp, setSignUp] = useState(false);
   const [signUpError, setSignUpError] = useState(false);
-  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
   const passWordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/
   const nameRegex = /^[A-Za-z]+$/
 
@@ -91,7 +91,7 @@ function Login() {
                 name="firstname"
                 id="firstname"
                 required={true}
-                errorDescription="Please enter valid firstname"
+                errorDescription="Please enter valid firstname (no number)"
               />
               <InputForm
                 description="LastName"
@@ -99,7 +99,7 @@ function Login() {
                 name="lastname"
                 id="lastname"
                 required={true}
-                errorDescription="Please enter valid lastname"
+                errorDescription="Please enter valid lastname (no number)"
               />
               <InputForm
                 description="Username"
@@ -115,7 +115,7 @@ function Login() {
                 name="password"
                 id="password"
                 required={true}
-                errorDescription="Please enter valid password"
+                errorDescription="Please enter valid password : One uppercase, numbers and 6-20 length"
               />
               <button type="submit" className="sign-in-button">
                 Sign Up
@@ -129,7 +129,7 @@ function Login() {
                 name="username"
                 id="username"
                 required={true}
-                errorDescription="Please enter valid User Name"
+                errorDescription="Please enter valid Username or email"
               />
               <InputForm
                 description="Password"
@@ -137,7 +137,6 @@ function Login() {
                 name="password"
                 id="password"
                 required={true}
-                errorDescription="Please enter valid password"
               />
               <InputForm
                 description="Remember me"

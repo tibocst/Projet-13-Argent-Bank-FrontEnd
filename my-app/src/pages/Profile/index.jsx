@@ -3,7 +3,7 @@ import AccountCard from "../../components/AccountCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getProfileContents,
-  getProfileEdittForm,
+  getProfileEditForm,
   fetchProfile,
   modifyProfile,
   toggleEditForm,
@@ -14,7 +14,7 @@ function Profile() {
   const dispatch = useDispatch();
   const token = localStorage.getItem("userToken");
   const contents = useSelector(getProfileContents);
-  const editForm = useSelector(getProfileEdittForm);
+  const editForm = useSelector(getProfileEditForm);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,8 +65,8 @@ function Profile() {
                   </button>
                 </div>
                 <div>
-                  <input type="text" name="firstname" id="firstname" />
-                  <input type="text" name="lastname" id="lastname" />
+                  <input type="text" name="firstname" id="firstname" placeholder={contents.body.firstName}/>
+                  <input type="text" name="lastname" id="lastname" placeholder={contents.body.lastName}/>
                 </div>
               </div>
             </form>

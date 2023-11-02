@@ -78,7 +78,7 @@ export const profileSlice = createSlice({
 export const getProfileContents = (state) => state.profile.contents;
 export const getProfileStatus = (state) => state.profile.status;
 export const getProfileError = (state) => state.profile.error;
-export const getProfileEdittForm = (state) => state.profile.editForm;
+export const getProfileEditForm = (state) => state.profile.editForm;
 
 export default profileSlice.reducer;
 export const { toggleEditForm } = profileSlice.actions;
