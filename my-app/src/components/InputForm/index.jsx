@@ -1,9 +1,14 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import {
+  getLoginContents,
+} from "../../features/login";
 import "../../styles/index.css";
 
 function InputForm(props) {
   const { description, type, name, id, required, errorDescription } = props;
   const [error, setError] = useState(false);
+  const loginContents = useSelector(getLoginContents);
 
   const handleOnCHange = (e) => {
     var regex = "";
@@ -40,6 +45,7 @@ function InputForm(props) {
         />
       </label>
       {error ? <p className="errorInput">{errorDescription}</p> : null}
+      {loginContents.message === "Error: Email already exists" && name === "username" ? <p className="errorInput">Error: Email already exists</p> : null}
     </div>
   );
 }

@@ -20,7 +20,7 @@ function Login() {
   const passWordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/
   const nameRegex = /^[A-Za-z]+$/
 
-  const handleSubmitSignIn = async (e) => {
+  const handleSubmitSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -34,10 +34,10 @@ function Login() {
       email: formJson.username,
       password: formJson.password,
     };
-    await dispatch(fetchLogin(bodyFetchData));
+    dispatch(fetchLogin(bodyFetchData));
   };
 
-  const handleSubmitSignUp = async (e) => {
+  const handleSubmitSignUp = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -46,8 +46,8 @@ function Login() {
     if (
       emailRegex.test(formJson.username) === true &&
       passWordRegex.test(formJson.password) === true &&
-      nameRegex.test(formJson.firstName) === true &&
-      nameRegex.test(formJson.lastName) === true
+      nameRegex.test(formJson.firstname) === true &&
+      nameRegex.test(formJson.lastname) === true
     ) {
       const bodyFetchData = {
         email: formJson.username,
@@ -55,8 +55,9 @@ function Login() {
         firstName: formJson.firstname,
         lastName: formJson.lastname,
       };
+
       setSignUpError(false);
-      await dispatch(fetchSignUp(bodyFetchData));
+      dispatch(fetchSignUp(bodyFetchData));
     } else {
       setSignUpError(true);
     }
@@ -81,7 +82,7 @@ function Login() {
             </p>
           ) : null}
           {signUpError === true ? (
-            <p className="errorSignIn">Error in form, try again</p>
+            <p className="errorInput">Error in form, try again</p>
           ) : null}
           {signUp ? (
             <form onSubmit={handleSubmitSignUp}>
@@ -151,7 +152,7 @@ function Login() {
             </form>
           )}
 
-          <div onClick={handleClick}>
+          <div onClick={handleClick} className="loginSwitch">
             <p>{signUp ? "Sign In ?" : "Sign Up ?"}</p>
           </div>
         </div>

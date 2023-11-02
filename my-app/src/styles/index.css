@@ -334,4 +334,9 @@ html {
     margin: 0;
     margin-top: 2px;
   }
+
+  .loginSwitch {
+    cursor: pointer;
+    text-decoration: underline;
+  }
   

@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import {data} from '../datas/data.js'
 
 const initialState = {
   contents: [],
@@ -11,7 +10,7 @@ const initialState = {
 export const fetchLogin = createAsyncThunk(
   "content/fetchLogin",
   async (bodyFetchData, thunkAPI) => {
-    // const response = await fetch(data)
+    console.log("passélogin")
     const response = await fetch("http://localhost:3001/api/v1/user/login", {
       method: "POST",
       body: JSON.stringify(bodyFetchData),
@@ -26,8 +25,7 @@ export const fetchLogin = createAsyncThunk(
 
 export const fetchSignUp = createAsyncThunk(
   "content/fetchSignUp",
-  async (bodyFetchData, thunkAPI) => {
-    // const response = await fetch(data)
+  async (bodyFetchData, { dispatch }) => {
     const response = await fetch("http://localhost:3001/api/v1/user/signup", {
       method: "POST",
       body: JSON.stringify(bodyFetchData),
@@ -36,6 +34,11 @@ export const fetchSignUp = createAsyncThunk(
       },
     });
     const data = await response.json();
+    console.log(data)
+    if(data.message === "User successfully created"){
+      console.log("passésignup")
+      await dispatch(fetchLogin(bodyFetchData));
+    }
     return data;
   }
 );
