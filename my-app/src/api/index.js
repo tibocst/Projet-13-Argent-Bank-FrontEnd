@@ -3,7 +3,7 @@
 export const getUser = async () => {
   try {
     // const response = await fetch(data)
-    const response = await fetch("http://localhost:3001/api/v1/user/login", {
+    const response = await fetch("https://projet-13-argent-bank-backend.onrender.com/api/v1/user/login", {
       method: "POST",
       body: JSON.stringify({
         email: "tony@stark.com",

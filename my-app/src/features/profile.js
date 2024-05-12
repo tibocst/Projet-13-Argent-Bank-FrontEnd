@@ -28,7 +28,7 @@ export const modifyProfile = createAsyncThunk(
   "content/modifyProfile",
   async (fetchData, thunkAPI) => {
     // const response = await fetch(data)
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+    const response = await fetch("https://projet-13-argent-bank-backend.onrender.com/api/v1/user/profile", {
       method: "PUT",
       body: JSON.stringify(fetchData.body),
       headers: {

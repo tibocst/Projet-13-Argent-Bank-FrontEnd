@@ -11,7 +11,7 @@ export const fetchLogin = createAsyncThunk(
   "content/fetchLogin",
   async (bodyFetchData, thunkAPI) => {
     console.log("passélogin")
-    const response = await fetch("http://localhost:3001/api/v1/user/login", {
+    const response = await fetch("https://projet-13-argent-bank-backend.onrender.com/api/v1/user/login", {
       method: "POST",
       body: JSON.stringify(bodyFetchData),
       headers: {
@@ -26,7 +26,7 @@ export const fetchLogin = createAsyncThunk(
 export const fetchSignUp = createAsyncThunk(
   "content/fetchSignUp",
   async (bodyFetchData, { dispatch }) => {
-    const response = await fetch("http://localhost:3001/api/v1/user/signup", {
+    const response = await fetch("https://projet-13-argent-bank-backend.onrender.com/api/v1/user/signup", {
       method: "POST",
       body: JSON.stringify(bodyFetchData),
       headers: {
