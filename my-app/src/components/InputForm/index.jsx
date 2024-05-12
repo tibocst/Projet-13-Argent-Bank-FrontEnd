@@ -20,7 +20,7 @@ function InputForm(props) {
       case "password":
         regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
         break;
-      case "username":
+      case "email":
         regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         break;
       default:
@@ -45,7 +45,7 @@ function InputForm(props) {
         />
       </label>
       {error ? <p className="errorInput">{errorDescription}</p> : null}
-      {loginContents.message === "Error: Email already exists" && name === "username" ? <p className="errorInput">Error: Email already exists</p> : null}
+      {loginContents.message === "Error: Email already exists" && name === "email" ? <p className="errorInput">Error: Email already exists</p> : null}
     </div>
   );
 }
