@@ -33,9 +33,7 @@ export const fetchSignUp = createAsyncThunk(
       },
     });
     const data = await response.json();
-    console.log(data)
     if(data.message === "User successfully created"){
-      console.log("passésignup")
       await dispatch(fetchLogin(bodyFetchData));
     }
     return data;

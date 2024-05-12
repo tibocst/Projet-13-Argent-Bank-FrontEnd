@@ -9,6 +9,7 @@ import {
   getLoginContents,
 } from "../../features/login";
 import { useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function Login() {
   const dispatch = useDispatch();
@@ -16,11 +17,12 @@ function Login() {
   const logged = useSelector(getLoginLogged);
   const [signUp, setSignUp] = useState(false);
   const [signUpError, setSignUpError] = useState(false);
-  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-  const passWordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/
-  const nameRegex = /^[A-Za-z]+$/
+  const [loading, setLoading] = useState(false);
+  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  const passWordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+  const nameRegex = /^[A-Za-z]+$/;
 
-  const handleSubmitSignIn = (e) => {
+  const handleSubmitSignIn = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -34,7 +36,15 @@ function Login() {
       email: formJson.email,
       password: formJson.password,
     };
-    dispatch(fetchLogin(bodyFetchData));
+    setLoading(true);
+    console.log(loading);
+    try {
+      await dispatch(fetchLogin(bodyFetchData));
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error("Erreur lors de la connexion :", error);
+    }
   };
 
   const handleSubmitSignUp = (e) => {
@@ -122,6 +132,22 @@ function Login() {
                 Sign Up
               </button>
             </form>
+          ) : loading ? (
+            <div className="loader">
+              <ClipLoader
+                color="black"
+                size={50}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                className="loader"
+                speedMultiplier={0.3}
+              />
+              <p>
+                Veuillez patienter pendant l'affichage des données, cela peut
+                prendre entre 30 et 50 secondes en raison du démarage de l'API
+                par Render.
+              </p>
+            </div>
           ) : (
             <form onSubmit={handleSubmitSignIn}>
               <InputForm

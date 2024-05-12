@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
 import Error from './pages/Error'
+import ExplicationSite from './components/ExplictionSite'
 import {  fetchProfile } from "./features/profile";
 import { getLoginLogged, connect } from "./features/login";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +33,7 @@ function App() {
   return (
     <Router>
       <NavBar src={LOGO} />
+      <ExplicationSite />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

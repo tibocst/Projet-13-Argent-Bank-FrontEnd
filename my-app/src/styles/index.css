@@ -120,6 +120,12 @@ html {
     margin-bottom: 0;
     font-size: 0.9rem;
   }
+
+  .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
   
   @media (min-width: 920px) {
     .hero {
