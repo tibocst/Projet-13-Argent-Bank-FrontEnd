@@ -10,7 +10,6 @@ const initialState = {
 export const fetchLogin = createAsyncThunk(
   "content/fetchLogin",
   async (bodyFetchData, thunkAPI) => {
-    console.log("passélogin")
     const response = await fetch("https://projet-13-argent-bank-backend.onrender.com/api/v1/user/login", {
       method: "POST",
       body: JSON.stringify(bodyFetchData),
