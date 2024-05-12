@@ -31,7 +31,7 @@ function Login() {
       localStorage.setItem("rememberMe", false);
     }
     const bodyFetchData = {
-      email: formJson.username,
+      email: formJson.email,
       password: formJson.password,
     };
     dispatch(fetchLogin(bodyFetchData));
@@ -44,13 +44,13 @@ function Login() {
     const formJson = Object.fromEntries(formData.entries());
 
     if (
-      emailRegex.test(formJson.username) === true &&
+      emailRegex.test(formJson.email) === true &&
       passWordRegex.test(formJson.password) === true &&
       nameRegex.test(formJson.firstname) === true &&
       nameRegex.test(formJson.lastname) === true
     ) {
       const bodyFetchData = {
-        email: formJson.username,
+        email: formJson.email,
         password: formJson.password,
         firstName: formJson.firstname,
         lastName: formJson.lastname,
@@ -103,12 +103,12 @@ function Login() {
                 errorDescription="Please enter valid lastname (no number)"
               />
               <InputForm
-                description="Username"
+                description="Email"
                 type="text"
-                name="username"
-                id="username"
+                name="email"
+                id="email"
                 required={true}
-                errorDescription="Please enter valid User Name"
+                errorDescription="Please enter valid Email"
               />
               <InputForm
                 description="Password"
@@ -125,12 +125,12 @@ function Login() {
           ) : (
             <form onSubmit={handleSubmitSignIn}>
               <InputForm
-                description="Username"
+                description="Email"
                 type="text"
-                name="username"
-                id="username"
+                name="email"
+                id="email"
                 required={true}
-                errorDescription="Please enter valid Username or email"
+                errorDescription="Please enter valid Email"
               />
               <InputForm
                 description="Password"
