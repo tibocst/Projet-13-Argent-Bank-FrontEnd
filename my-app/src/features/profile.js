@@ -12,7 +12,7 @@ export const fetchProfile = createAsyncThunk(
   "content/fetchProfile",
   async (token, thunkAPI) => {
     // const response = await fetch(data)
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+    const response = await fetch("https://projet-13-argent-bank-backend.onrender.com/api/v1/user/profile", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
