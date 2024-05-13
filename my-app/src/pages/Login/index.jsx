@@ -47,7 +47,7 @@ function Login() {
     }
   };
 
-  const handleSubmitSignUp = (e) => {
+  const handleSubmitSignUp = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -67,7 +67,14 @@ function Login() {
       };
 
       setSignUpError(false);
-      dispatch(fetchSignUp(bodyFetchData));
+      setLoading(true);
+      try {
+        await dispatch(fetchSignUp(bodyFetchData));
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.error("Erreur lors de la création :", error);
+    }
     } else {
       setSignUpError(true);
     }
@@ -95,43 +102,61 @@ function Login() {
             <p className="errorInput">Error in form, try again</p>
           ) : null}
           {signUp ? (
-            <form onSubmit={handleSubmitSignUp}>
-              <InputForm
-                description="FirstName"
-                type="text"
-                name="firstname"
-                id="firstname"
-                required={true}
-                errorDescription="Please enter valid firstname (no number)"
-              />
-              <InputForm
-                description="LastName"
-                type="text"
-                name="lastname"
-                id="lastname"
-                required={true}
-                errorDescription="Please enter valid lastname (no number)"
-              />
-              <InputForm
-                description="Email"
-                type="text"
-                name="email"
-                id="email"
-                required={true}
-                errorDescription="Please enter valid Email"
-              />
-              <InputForm
-                description="Password"
-                type="password"
-                name="password"
-                id="password"
-                required={true}
-                errorDescription="Please enter valid password : One uppercase, numbers and 6-20 length"
-              />
-              <button type="submit" className="sign-in-button">
-                Sign Up
-              </button>
-            </form>
+            loading ? (
+              <div className="loader">
+                <ClipLoader
+                  color="black"
+                  size={50}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                  className="loader"
+                  speedMultiplier={0.3}
+                />
+                <p>
+                  Veuillez patienter pendant l'affichage des données, cela peut
+                  prendre entre 30 et 50 secondes en raison du démarage de l'API
+                  par Render.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitSignUp}>
+                <InputForm
+                  description="FirstName"
+                  type="text"
+                  name="firstname"
+                  id="firstname"
+                  required={true}
+                  errorDescription="Please enter valid firstname (no number)"
+                />
+                <InputForm
+                  description="LastName"
+                  type="text"
+                  name="lastname"
+                  id="lastname"
+                  required={true}
+                  errorDescription="Please enter valid lastname (no number)"
+                />
+                <InputForm
+                  description="Email"
+                  type="text"
+                  name="email"
+                  id="email"
+                  required={true}
+                  errorDescription="Please enter valid Email"
+                />
+                <InputForm
+                  description="Password"
+                  type="password"
+                  name="password"
+                  id="password"
+                  required={true}
+                  errorDescription="Please enter valid password : One uppercase, numbers and 6-20 length"
+                />
+                <button type="submit" className="sign-in-button">
+                  Sign Up
+                </button>
+              </form>
+            )
           ) : loading ? (
             <div className="loader">
               <ClipLoader
